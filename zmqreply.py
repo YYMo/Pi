@@ -13,8 +13,8 @@ def get_ip_address(ifname):
         )[20:24])
 
 class MessageReceiver:
-    def __init__(self, queue, portnumber = "10113"):
-        self.wlan_ip = get_ip_address('wlan0')
+    def __init__(self, queue, netport, portnumber = "10113"):
+        self.wlan_ip = get_ip_address(netport)
         self.port = portnumber
         self.queue = queue
         print self.wlan_ip, ": ", self.port
@@ -39,14 +39,3 @@ class MessageReceiver:
                 #display.pauseMusic()
             self.queue.put(message)
             self.socket.send("Message from %s" % (self.port))
-
-
-def main():
-    port = "10113"
-    if len(sys.argv) > 1:
-        port = sys.argv[1]
-    mr = MessageReceiver(port)
-    mr.loop()
-
-if __name__ == '__main__':
-    main()

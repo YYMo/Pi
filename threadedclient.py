@@ -6,12 +6,12 @@ from Tkinter import Tk
 import musicplayer
 
 class ThreadedClient:
-    def __init__(self, parent):
+    def __init__(self, parent, netport, portnumber):
         self.queue = Queue.Queue()
         self.parent = parent
         self.musicplayer = musicplayer.MusicPlayer()
         self.gui = guiexample.Example(self.parent, self.queue, self.musicplayer, self.endApplication)
-        self.replier = zmqreply.MessageReceiver(self.queue, "11103")
+        self.replier = zmqreply.MessageReceiver(self.queue, netport, portnumber)
 
         self.running = 1
         self.zmqthread = threading.Thread(target = self.replier.loop)
@@ -40,7 +40,16 @@ class ThreadedClient:
 
 
 
+def main():
+    port = "10113"
+    netport = 'wlan0'
+    if len(sys.argv) > 1:
+        port = sys.argv[1]
+    if len(sys.argv) > 2:
+        port = sys.argv[2]
+    root = Tk()
+    client = ThreadedClient(root, netport, port)
+    root.mainloop()  
 
-root = Tk()
-client = ThreadedClient(root)
-root.mainloop()  
+if __name__ == '__main__':
+    main()
