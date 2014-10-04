@@ -27,6 +27,7 @@ class ThreadedClient:
         if not self.running:
             # This is the brutal stop of the system. You may want to do
             # some cleanup before actually shutting it down.
+            # Doing some clean up work here
             import sys
             print "exit(1)"
             sys.exit(1)
