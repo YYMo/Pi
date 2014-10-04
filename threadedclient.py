@@ -3,6 +3,7 @@ import Queue
 import guiexample
 import zmqreply
 from Tkinter import Tk
+import sys
 import musicplayer
 
 class ThreadedClient:
@@ -46,7 +47,7 @@ def main():
     if len(sys.argv) > 1:
         port = sys.argv[1]
     if len(sys.argv) > 2:
-        port = sys.argv[2]
+        netport = sys.argv[2]
     root = Tk()
     client = ThreadedClient(root, netport, port)
     root.mainloop()  
