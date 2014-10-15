@@ -13,18 +13,32 @@ def get_ip_address(ifname):
         )[20:24])
 
 class MessageReceiver:
-    def __init__(self, queue, netport, portnumber = "10113"):
+    def __init__(self, queue, netport, portnumber):
+        global run
         self.wlan_ip = get_ip_address(netport)
         self.port = portnumber
         self.queue = queue
         print self.wlan_ip, ": ", self.port
         self.queue.put("IP: " +self.wlan_ip + ": " + self.port)
         self.context = zmq.Context()
-        self.socket = self.context.socket(zmq.REP)
+        self.socket = self.context.socket(zmq.PULL)
+        #self.socket.bind("tcp://127.0.0.1:5557")
+        print "tcp://%s:%s" % ("*", self.port)
         self.socket.bind("tcp://%s:%s" % ("*", self.port))
+        self.poller = zmq.Poller()
+        self.poller.register(self.socket, zmq.POLLIN)
 
     def loop(self):
-        while True:
+        global run
+        while True: 
+            if(run == 0):
+                break
+            socks = dict(self.poller.poll(1000))
+            if socks:
+                if socks.get(self.socket) == zmq.POLLIN:
+                    print "got message ",self.socket.recv(zmq.NOBLOCK)
+            
+            '''
             message = self.socket.recv()
             if(message ==  "show_text"):
                 print("Show Text")
@@ -37,5 +51,8 @@ class MessageReceiver:
             elif(message == "pause_music"):
                 print("Pause Music")
                 #display.pauseMusic()
-            self.queue.put(message)
-            self.socket.send("Message from %s" % (self.port))
+            print "timeout"
+            #self.queue.put(message)
+            #self.socket.send("Message from %s" % (self.port))
+            '''
+run = 0

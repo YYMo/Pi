@@ -38,13 +38,13 @@ class Example(Frame):
 
         self.text_area = Tkinter.Text(self, height = 10, width = 50)
         self.text_area.place(x = 10, y = self.contentHeight + padding1)
-        '''
+     
         okButton = Button(self, text = "OK")
         okButton.place(x = self.weight - 200, y = self.contentHeight + padding1)
 
         quitButton = Button(self.parent, text = "QUIT", command = self.endCommand)
         quitButton.place(x=self.weight - 100, y = self.contentHeight + padding1)
-        '''
+       
         self.wow_pic = Image.open("wow.jpg")
         self.wow_pic = self.wow_pic.resize((320, 240))
         self.wow_pic_tk = ImageTk.PhotoImage(self.wow_pic)
@@ -92,3 +92,4 @@ class Example(Frame):
                     self.insertText(msg)
             except Queue.Empty:
                 pass
+    
