@@ -6,6 +6,7 @@ import zmqreply
 import pygame
 import threading
 import musicplayer
+import time
 
 class Example(Frame):
   
@@ -17,9 +18,14 @@ class Example(Frame):
         self.queue = queue
         self.musicplayer = musicplayer
         self.endCommand = endCommand
-        self.initUI()
+        self.pictures = ["hd_1.jpg", "hd_2.jpg", "hd_3.jpg", "hd_4.jpg", "hd_5.jpg"];
         self.centerWindow()
-
+        self.initUI()
+        '''
+        self.showPic = 1
+        self.playSlides()
+        '''
+    
     def initUI(self):
         self.parent.title("Example")
         self.pack(fill=BOTH, expand = 1)
@@ -29,42 +35,47 @@ class Example(Frame):
 
         frame = Frame(self, relief=Tkinter.RAISED, borderwidth=1)
         frame.pack(fill=BOTH, expand=1)
-
-        self.contentHeight = 250
-        padding1 = 20
-
-        label_text_area = Tkinter.Label(self, text = "Message received:")
-        label_text_area.place(x = 10, y = self.contentHeight )
-
-        self.text_area = Tkinter.Text(self, height = 10, width = 50)
-        self.text_area.place(x = 10, y = self.contentHeight + padding1)
      
         okButton = Button(self, text = "OK")
-        okButton.place(x = self.weight - 200, y = self.contentHeight + padding1)
+        okButton.place(x = self.width - 200, y = self.height - 100)
 
         quitButton = Button(self.parent, text = "QUIT", command = self.endCommand)
-        quitButton.place(x=self.weight - 100, y = self.contentHeight + padding1)
+        quitButton.place(x = self.width - 100, y = self.height - 100)
        
-        self.wow_pic = Image.open("wow.jpg")
-        self.wow_pic = self.wow_pic.resize((320, 240))
+        scale = 0.75
+        self.wow_pic = Image.open("hd_1.jpg")
+        self.wow_pic = self.wow_pic.resize((int(self.width*scale), int(self.height*scale)))
         self.wow_pic_tk = ImageTk.PhotoImage(self.wow_pic)
+        self.label_wow_pic = Label(self, image = self.wow_pic_tk)
+        self.label_wow_pic.image = self.wow_pic_tk
+        self.label_wow_pic.place(x = 10, y = 10)
 
-    def centerWindow(self):
-      
-        sw = self.parent.winfo_screenwidth()
-        sh = self.parent.winfo_screenheight()
+        info_x = int(self.width*scale) + 20
 
-        x = (sw - self.weight)/2
-        y = (sh - self.height)/2
-        self.parent.geometry('%dx%d+%d+%d' % (sw, sh, 0, 0))
+        label_text_area = Tkinter.Label(self, text = "Message received:")
+        label_text_area.place(x = info_x, y = 10)
+
+        self.text_area = Tkinter.Text(self, height = 10, width = 40)
+        self.text_area.place(x = info_x, y = 30)
+
+    def centerWindow(self):      
+        self.width = self.parent.winfo_screenwidth()
+        self.height = self.parent.winfo_screenheight()
+        self.queue.put("Width: " + str(self.width) + " Height: " + str(self.height))
+        self.parent.geometry('%dx%d+%d+%d' % (self.width, self.height, 0, 0))
 
     def insertText(self, str):
         self.text_area.insert(Tkinter.INSERT, "\n" + str)
 
-    def showPicture(self):
-        label_wow_pic = Label(self, image = self.wow_pic_tk)
-        label_wow_pic.image = self.wow_pic_tk
-        label_wow_pic.place(x = 10, y = 10)
+    def showPicture(self, img_name):
+        self.label_wow_pic.destroy()
+        scale = 0.75
+        self.wow_pic = Image.open(img_name)
+        self.wow_pic = self.wow_pic.resize((int(self.width*scale), int(self.height*scale)))
+        self.wow_pic_tk = ImageTk.PhotoImage(self.wow_pic)
+        self.label_wow_pic = Label(self, image = self.wow_pic_tk)
+        self.label_wow_pic.image = self.wow_pic_tk
+        self.label_wow_pic.place(x = 10, y = 10)
 
     def playMusic(self):
         pygame.mixer.init()
@@ -75,6 +86,24 @@ class Example(Frame):
         self.musicthread = threading.Thread(target = self.musicplayer.play)
         self.musicthread.start()
 
+    def playSlides(self):
+        self.showPic = 1
+        self.currentSlideNo = 0;
+        self.showSlidesThread = threading.Thread(target = self.playSlidesClock)
+        self.showSlidesThread.start()
+
+    def playSlidesClock(self):
+        #self.queue.put("next_picture");
+        while True:
+            if(self.showPic == 0):
+                break;
+            self.queue.put("next_picture");
+            time.sleep(5);
+            
+    def nextSlide(self):
+        self.currentSlideNo = (self.currentSlideNo + 1) % len(self.pictures)
+        self.showPicture(self.pictures[self.currentSlideNo])
+
     def processIncoming(self):
         while self.queue.qsize():
             try:
@@ -83,13 +112,15 @@ class Example(Frame):
                 if(msg == "show_text"):
                     self.insertText("I need to show a text")
                 elif(msg == "show_picture"):
-                    self.showPicture()
+                    self.showPic = 1
+                    self.playSlides()
                 elif(msg == "play_music"):
                     self.playMusic()
                 elif(msg == "pause_music"):
                     self.pauseMusic()
+                elif(msg == "next_picture"):
+                    self.nextSlide()
                 else:
                     self.insertText(msg)
-            except Queue.Empty:
+            except:
                 pass
-    

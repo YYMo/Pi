@@ -36,8 +36,9 @@ class MessageReceiver:
             socks = dict(self.poller.poll(1000))
             if socks:
                 if socks.get(self.socket) == zmq.POLLIN:
-                    print "got message ",self.socket.recv(zmq.NOBLOCK)
-            
+                    message = self.socket.recv(zmq.NOBLOCK)
+                    print "got message ",message
+                    self.queue.put(message)
             '''
             message = self.socket.recv()
             if(message ==  "show_text"):

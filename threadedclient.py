@@ -41,6 +41,7 @@ class ThreadedClient:
 
     def endApplication(self):
         print "endApp"
+        self.gui.showPic = 0
         zmqreply.run = 0
         time.sleep(3)
         self.running = 0
