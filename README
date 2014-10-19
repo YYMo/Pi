@@ -1,0 +1,17 @@
+Any questions, ask: yanyue1991@gmail.com
+
+To run this script on you Pi
+This program is based on python, to start you have to run:
+sudo python get-pip.py
+sudo apt-get update
+sudo apt-get install python-dev python-setuptools
+sudo apt-get install tk8.5-dev tcl8.5-dev
+sudo pip install pillow
+
+You alse have to install ZMQ lib and binding it with Python.
+Instructions can be found on zeromq.org, it is straight-forward.
+
+Example to run a listener on port number 6700, on interface eth0:
+sudo python threadedclient.py 6700 eth0 
+
+
