@@ -1,6 +1,6 @@
 Any questions, ask: yanyue1991@gmail.com
 
-To run this script on you Pi
+**To run this script on you Pi**
 This program is based on python, to start you have to run:
 sudo python get-pip.py
 sudo apt-get update
@@ -13,5 +13,39 @@ Instructions can be found on zeromq.org, it is straight-forward.
 
 Example to run a listener on port number 6700, on interface eth0:
 sudo python threadedclient.py 6700 eth0 
+
+########################################################################
+
+**auto wifi-connect configuration**
+
+sudo vim sudo nano /etc/network/interfaces
+
+auto lo
+iface lo inet loopback
+iface eth0 inet dhcp
+
+auto wlan0
+allow-hotplug wlan0
+iface wlan0 inet dhcp
+wpa-ssid "AndroidAP" //wifi SSID 
+wpa-psk "my password is ni caicai " //wifi password
+########################################################################
+
+**auto start GUI**
+
+auto run startx(Enter GUI)
+sudo vim /etc/rc.local
+
+add one line before 'exit 0'
+su pi -c startx
+
+#########################################################################
+
+**auto start program when booting**
+
+sudo vim /etc/xdg/lxsession/LXDE/autostart
+
+and read it, it is easy !
+###########################################################################
 
 
