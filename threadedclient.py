@@ -2,7 +2,7 @@ import threading
 import Queue
 import guiexample
 import zmqreply
-from Tkinter import Tk
+from Tkinter import *
 import sys
 import musicplayer
 import Tkinter
@@ -51,18 +51,27 @@ class ThreadedClient:
 
 # argv[1]: portnumber for example: 6700
 # argv[2]: netport name for example: eth0, em1, wlan
+def key(event):
+    global client
+    print "here"
+    if(event.char == "e"):
+        client.endApplication()
 
 def main():
-        
+    global client
     port = "10113"
     netport = 'wlan0'
     if len(sys.argv) > 1:
         port = sys.argv[1]
     if len(sys.argv) > 2:
         netport = sys.argv[2]
+    
     root = Tk()
+    root.bind_all('<Key>', key)
+    #root.overrideredirect(True)
     client = ThreadedClient(root, netport, port)
     #client.endApplication()
+
     root.mainloop()  
 
 if __name__ == '__main__':
