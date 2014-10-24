@@ -8,6 +8,12 @@ sudo apt-get install python-dev python-setuptools
 sudo apt-get install tk8.5-dev tcl8.5-dev
 sudo pip install pillow
 
+# install libjpeg-dev with apt
+sudo apt-get install libjpeg-dev
+
+# reinstall pillow
+pip install -I pillow
+
 You alse have to install ZMQ lib and binding it with Python.
 Instructions can be found on zeromq.org, it is straight-forward.
 
