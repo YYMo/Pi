@@ -1,7 +1,7 @@
 import sys
 from socket import *
 serverHost = 'localhost'
-serverPort = 50007
+serverPort = 50006
 
 message = ['Hello network world']
 if len(sys.argv) > 1:
