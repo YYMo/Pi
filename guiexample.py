@@ -83,9 +83,13 @@ class Example(Frame):
         pygame.mixer.music.play()
 
     def pauseMusic(self):
+        pygame.mixer.music.pause()
+        '''
         self.musicthread = threading.Thread(target = self.musicplayer.play)
         self.musicthread.start()
 
+        '''
+        
     def playSlides(self):
         self.showPic = 1
         self.currentSlideNo = 0;

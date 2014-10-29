@@ -16,7 +16,9 @@ class MusicPlayer:
         pygame.mixer.music.set_endevent(pygame.constants.USEREVENT)
  
     def play(self):
+        self.playing = True
         pygame.mixer.music.play()
+        '''
         while not self.done:
             # ALL EVENT PROCESSING SHOULD GO BELOW THIS COMMENT
             for event in pygame.event.get(): # User did something
@@ -25,3 +27,20 @@ class MusicPlayer:
                 elif event.type == pygame.constants.USEREVENT:
                     pygame.mixer.music.load('1.mp3')
                     pygame.mixer.music.play()
+                    '''
+    def pause(self):
+        if(self.playing):
+            pygame.music.pause()
+
+    def stop(self):
+        if(self.playing):
+            pygame.music.stop()
+
+
+def main():
+    mp = MusicPlayer();
+    mp.play();
+
+if __name__ == '__main__':
+    main()
+
