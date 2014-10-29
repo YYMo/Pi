@@ -49,8 +49,9 @@ class ThreadedClient:
         self.gui.showPic = 0
         zmqreply.run = 0
         socket_reply.run = 0
-        time.sleep(3)
+        #time.sleep(3)
         self.running = 0
+        self.musicplayer.stop()
         #self.parent.quit();
 
 
