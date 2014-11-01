@@ -8,6 +8,7 @@ import musicplayer
 import Tkinter
 import time
 import socket_reply
+import http_server
 
 class ThreadedClient:
     
@@ -20,6 +21,7 @@ class ThreadedClient:
         self.gui = guiexample.Example(self.parent, self.queue, self.musicplayer, self.endApplication)
         self.replier = zmqreply.MessageReceiver(self.queue, netport, portnumber)
         self.sckt_replier = socket_reply.SocketReceiver(self.queue)
+        self.http_replier = http_server.HttpServer();
 
         zmqreply.run = 1
         self.zmqthread = threading.Thread(target = self.replier.loop)
@@ -28,6 +30,9 @@ class ThreadedClient:
         socket_reply.run = 1
         self.sckt_thread = threading.Thread(target = self.sckt_replier.loop)
         self.sckt_thread.start()
+
+        self.http_thread = threading.Thread(target = self.http_replier.loop)
+        self.http_thread.start()
 
         self.running = 1
         self.periodicCall()
@@ -49,6 +54,8 @@ class ThreadedClient:
         self.gui.showPic = 0
         zmqreply.run = 0
         socket_reply.run = 0
+        http_server.need_to_stop = 1
+        self.http_replier.halt()
         #time.sleep(3)
         self.running = 0
         self.musicplayer.stop()

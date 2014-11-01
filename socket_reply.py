@@ -17,7 +17,7 @@ class SocketReceiver:
             infds,outfds,errfds = select([self.serverObj,],[],[],5)   
             if(run == 0):
                 print 'close'
-                connection.close()
+                #connection.close()
                 self.serverObj.close()
                 sys.exit()
                 break

@@ -12,6 +12,7 @@ class MusicPlayer:
     def __init__(self):
         pygame.init()
         self.done = False
+        self.playing = False
         pygame.mixer.music.load('1.mp3')
         pygame.mixer.music.set_endevent(pygame.constants.USEREVENT)
  

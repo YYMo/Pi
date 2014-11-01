@@ -18,20 +18,8 @@ import SimpleHTTPServer
 import SocketServer
 import logging
 import cgi
-
+import BaseHTTPServer
 import sys
-
-
-if len(sys.argv) > 2:
-    PORT = int(sys.argv[2])
-    I = sys.argv[1]
-elif len(sys.argv) > 1:
-    PORT = int(sys.argv[1])
-    I = ""
-else:
-    PORT = 8004
-    I = ""
-
 
 class ServerHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
 
@@ -41,20 +29,21 @@ class ServerHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
         SimpleHTTPServer.SimpleHTTPRequestHandler.do_GET(self)
 
     def do_POST(self):
-        logging.warning("======= POST STARTED =======")
-        logging.warning(self.headers)
-	content_len = int(self.headers.getheader('content-length', 0))
+
+        #logging.warning("======= POST STARTED =======")
+        #logging.warning(self.headers)
+        content_len = int(self.headers.getheader('content-length', 0))
         post_body = self.rfile.read(content_len)
-        logging.warning(post_body)
-	response = u'{"a":"This is the respon"}'
-	#response = 
-	self.send_response(200) #create header
+        #logging.warning(post_body)
+        response = u'{"a":"This is the respon"}'
+        #response = 
+        self.send_response(200) #create header
         self.send_header("Content-Type", 'application/json')
-	self.send_header("Content-Length", len(response))
+        self.send_header("Content-Length", len(response))
         self.end_headers()
 
         self.wfile.write(response) #send response
-	SimpleHTTPServer.SimpleHTTPRequestHandler.do_GET(self)
+        SimpleHTTPServer.SimpleHTTPRequestHandler.do_GET(self)
 
 '''
         form = cgi.FieldStorage(
@@ -66,7 +55,7 @@ class ServerHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
         content_len = int(self.headers.getheader('content-length', 0))
         post_body = self.rfile.read(content_len)
         logging.warning(post_body);
-	logging.warning(post_body);
+    logging.warning(post_body);
 
         logging.warning("======= POST VALUES =======")
         for item in form.list:
@@ -75,10 +64,39 @@ class ServerHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
 
         SimpleHTTPServer.SimpleHTTPRequestHandler.do_GET(self)
 '''
-Handler = ServerHandler
 
-httpd = SocketServer.TCPServer(("", PORT), Handler)
+class HttpServer():
+    def __init__(self):
+        self.PORT = 8004
+        self.Handler = ServerHandler
+        self.httpd = BaseHTTPServer.HTTPServer(("", self.PORT), self.Handler)
+    
+    def loop(self):
+        self.httpd.serve_forever(0.5)
 
-print "@rochacbruno Python http server version 0.1 (for testing purposes only)"
-print "Serving at: http://%(interface)s:%(port)s" % dict(interface=I or "localhost", port=PORT)
-httpd.serve_forever()
+    def halt(self):
+        self.httpd.shutdown()
+
+
+def main():
+    if len(sys.argv) > 2:
+        PORT = int(sys.argv[2])
+        I = sys.argv[1]
+    elif len(sys.argv) > 1:
+        PORT = int(sys.argv[1])
+        I = ""
+    else:
+        PORT = 8004
+        I = ""
+
+    Handler = ServerHandler
+    httpd = BaseHTTPServer.HTTPServer(("", PORT), Handler)
+    print "@rochacbruno Python http server version 0.1 (for testing purposes only)"
+    print "Serving at: http://%(interface)s:%(port)s" % dict(interface=I or "localhost", port=PORT)
+    keep_running = 1
+    while keep_running:
+        httpd.handle_request()
+
+
+if __name__ == '__main__':
+    main()
