@@ -20,8 +20,10 @@ import logging
 import cgi
 import BaseHTTPServer
 import sys
+import Queue
 
 class ServerHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
+    
 
     def do_GET(self):
         logging.warning("======= GET STARTED =======")
@@ -29,11 +31,12 @@ class ServerHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
         SimpleHTTPServer.SimpleHTTPRequestHandler.do_GET(self)
 
     def do_POST(self):
-
+        global server_queue
         #logging.warning("======= POST STARTED =======")
         #logging.warning(self.headers)
         content_len = int(self.headers.getheader('content-length', 0))
         post_body = self.rfile.read(content_len)
+        server_queue.put(str(post_body))
         #logging.warning(post_body)
         response = u'{"a":"This is the respon"}'
         #response = 
@@ -66,18 +69,21 @@ class ServerHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
 '''
 
 class HttpServer():
-    def __init__(self):
+    
+    def __init__(self, queue):
+        global server_queue
+        server_queue = queue
         self.PORT = 8004
         self.Handler = ServerHandler
         self.httpd = BaseHTTPServer.HTTPServer(("", self.PORT), self.Handler)
-    
+
     def loop(self):
         self.httpd.serve_forever(0.5)
 
     def halt(self):
         self.httpd.shutdown()
 
-
+'''
 def main():
     if len(sys.argv) > 2:
         PORT = int(sys.argv[2])
@@ -100,3 +106,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+'''

@@ -21,16 +21,19 @@ class ThreadedClient:
         self.gui = guiexample.Example(self.parent, self.queue, self.musicplayer, self.endApplication)
         self.replier = zmqreply.MessageReceiver(self.queue, netport, portnumber)
         self.sckt_replier = socket_reply.SocketReceiver(self.queue)
-        self.http_replier = http_server.HttpServer();
+        self.http_replier = http_server.HttpServer(self.queue)
 
+        # start zmq replier
         zmqreply.run = 1
         self.zmqthread = threading.Thread(target = self.replier.loop)
         self.zmqthread.start()
 
+        # start socket replier
         socket_reply.run = 1
         self.sckt_thread = threading.Thread(target = self.sckt_replier.loop)
         self.sckt_thread.start()
 
+        # start http replier
         self.http_thread = threading.Thread(target = self.http_replier.loop)
         self.http_thread.start()
 
