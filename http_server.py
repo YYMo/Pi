@@ -28,6 +28,16 @@ class ServerHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
     def do_GET(self):
         logging.warning("======= GET STARTED =======")
         logging.warning(self.headers)
+
+        response = u'{"a":"This is the respon"}'
+        #response = 
+        self.send_response(200) #create header
+        self.send_header("Content-Type", 'application/json')
+        self.send_header("Content-Length", len(response))
+        self.end_headers()
+
+        self.wfile.write(response) #send response
+
         SimpleHTTPServer.SimpleHTTPRequestHandler.do_GET(self)
 
     def do_POST(self):
@@ -36,8 +46,9 @@ class ServerHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
         #logging.warning(self.headers)
         content_len = int(self.headers.getheader('content-length', 0))
         post_body = self.rfile.read(content_len)
+        server_queue.put("json_request")
         server_queue.put(str(post_body))
-        #logging.warning(post_body)
+        logging.warning(post_body)
         response = u'{"a":"This is the respon"}'
         #response = 
         self.send_response(200) #create header
@@ -94,7 +105,7 @@ def main():
     else:
         PORT = 8004
         I = ""
-
+    queue = Queue.Queue()
     Handler = ServerHandler
     httpd = BaseHTTPServer.HTTPServer(("", PORT), Handler)
     print "@rochacbruno Python http server version 0.1 (for testing purposes only)"

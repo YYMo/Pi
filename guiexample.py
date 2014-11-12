@@ -7,6 +7,8 @@ import pygame
 import threading
 import musicplayer
 import time
+import commander
+
 
 class Example(Frame):
   
@@ -21,6 +23,7 @@ class Example(Frame):
         self.pictures = ["hd_1.jpg", "hd_2.jpg", "hd_3.jpg", "hd_4.jpg", "hd_5.jpg"];
         self.centerWindow()
         self.initUI()
+        self.commander = commander.Commander()
         '''
         self.showPic = 1
         self.playSlides()
@@ -124,6 +127,11 @@ class Example(Frame):
                     self.pauseMusic()
                 elif(msg == "next_picture"):
                     self.nextSlide()
+                elif(msg == "json_request"):
+                    self.insertText("Get JSON request")
+                    msg = self.queue.get(0)
+                    self.commander.parseCmd(msg)
+
                 else:
                     self.insertText(msg)
             except:
