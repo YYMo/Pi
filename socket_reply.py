@@ -1,6 +1,8 @@
 from socket import *
 from select import *
 import sys
+import Queue
+import threading
 
 class SocketReceiver:
     def __init__(self, queue):
@@ -34,3 +36,15 @@ class SocketReceiver:
                 connection.close()
 
 run = 0
+
+
+def main():
+    global run
+    run = 1
+    queue = Queue.Queue()
+    sr = SocketReceiver(queue)
+    sckt_thread = threading.Thread(target = sr.loop)
+    sckt_thread.start()
+
+if __name__ == '__main__':
+    main()
