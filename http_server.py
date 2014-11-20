@@ -85,6 +85,7 @@ class HttpServer():
         global server_queue
         server_queue = queue
         self.PORT = 8004
+        server_queue.put('HTTP port: ' + str(self.PORT))
         self.Handler = ServerHandler
         self.httpd = BaseHTTPServer.HTTPServer(("", self.PORT), self.Handler)
 

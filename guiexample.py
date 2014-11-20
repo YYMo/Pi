@@ -40,12 +40,12 @@ class Example(Frame):
         frame.pack(fill=BOTH, expand=1)
      
         okButton = Button(self, text = "OK")
-        okButton.place(x = self.width - 200, y = self.height - 100)
+        okButton.place(x = self.width - 300, y = self.height - 200)
 
         quitButton = Button(self.parent, text = "QUIT", command = self.endCommand)
-        quitButton.place(x = self.width - 100, y = self.height - 100)
+        quitButton.place(x = self.width - 200, y = self.height - 200)
        
-        scale = 0.75
+        scale = 0.6
         self.wow_pic = Image.open("hd_1.jpg")
         self.wow_pic = self.wow_pic.resize((int(self.width*scale), int(self.height*scale)))
         self.wow_pic_tk = ImageTk.PhotoImage(self.wow_pic)
@@ -64,7 +64,8 @@ class Example(Frame):
     def centerWindow(self):      
         self.width = self.parent.winfo_screenwidth()
         self.height = self.parent.winfo_screenheight()
-        self.queue.put("Width: " + str(self.width) + " Height: " + str(self.height))
+        self.queue.put("Width: " + str(self.width))
+        self.queue.put("Height: " + str(self.height))
         self.parent.geometry('%dx%d+%d+%d' % (self.width, self.height, 0, 0))
 
     def insertText(self, str):

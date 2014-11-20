@@ -19,7 +19,8 @@ class MessageReceiver:
         self.port = portnumber
         self.queue = queue
         print self.wlan_ip, ": ", self.port
-        self.queue.put("IP: " +self.wlan_ip + ": " + self.port)
+        #self.queue.put("IP: " +self.wlan_ip + ": " + self.port)
+        self.queue.put("IP: " +self.wlan_ip)
         self.context = zmq.Context()
         self.socket = self.context.socket(zmq.PULL)
         #self.socket.bind("tcp://127.0.0.1:5557")
