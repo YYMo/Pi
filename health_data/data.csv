@@ -1,0 +1,185 @@
+6:00 AM,adult,19,0,N.A.
+6:30 AM,adult,19,0,N.A.
+7:00 AM,adult,19.5,0.35,warm orange
+7:30 AM,adult,20,0.8,bright yellow
+8:00 AM,adult,20.5,0.8,bright yellow
+8:30 AM,adult,21,0.8,regular
+9:00 AM,adult,21.5,0.8,regular
+9:30 AM,adult,21.5,1,white
+10:00 AM,adult,21.5,1,white
+10:30 AM,adult,22.5,0.7,regular
+11:00 AM,adult,22,0.8,bright yellow
+11:30 AM,adult,21.5,0.8,regular
+12:00 PM,adult,21.5,0.8,regular
+12:30 PM,adult,21.5,0.8,regular
+1:00 PM,adult,21.5,0.8,bright yellow
+1:30 PM,adult,21.5,0.8,regular
+2:00 PM,adult,21.5,0.8,regular
+2:30 PM,adult,23,0.5,warm orange
+3:00 PM,adult,22,0.8,bright yellow
+3:30 PM,adult,21.5,0.8,regular
+4:00 PM,adult,21.5,0.8,bright yellow
+4:30 PM,adult,21.5,0.8,regular
+5:00 PM,adult,22,1,red
+5:30 PM,adult,22,1,red
+6:00 PM,adult,22,1,red
+6:30 PM,adult,22,1,red
+7:00 PM,adult,21.5,0.8,bright yellow
+7:30 PM,adult,21.5,0.8,regular
+8:00 PM,adult,21.5,0.8,regular
+8:30 PM,adult,21.5,0.8,regular
+9:00 PM,adult,21.5,0.7,warm orange
+9:30 PM,adult,22,0.7,warm orange
+10:00 PM,adult,22,0.7,warm orange
+10:30 PM,adult,22.5,0.5,warm orange
+11:00 PM,adult,21,0.35,warm orange
+11:30 PM,adult,20,0,N.A.
+12:00 AM,adult,19,0,N.A.
+6:00 AM,elderly,19.5,0.35,warm orange
+6:30 AM,elderly,20,0.8,bright yellow
+7:00 AM,elderly,20.5,0.8,bright yellow
+7:30 AM,elderly,21,0.8,regular
+8:00 AM,elderly,21.5,0.8,regular
+8:30 AM,elderly,21.5,0.8,regular
+9:00 AM,elderly,21.5,0.8,regular
+9:30 AM,elderly,21.5,0.8,regular
+10:00 AM,elderly,21.5,0.8,regular
+10:30 AM,elderly,22.5,0.7,regular
+11:00 AM,elderly,22,0.8,bright yellow
+11:30 AM,elderly,21.5,0.8,regular
+12:00 PM,elderly,21.5,0.8,regular
+12:30 PM,elderly,21.5,0.8,regular
+1:00 PM,elderly,21.5,0.8,bright yellow
+1:30 PM,elderly,21.5,0.8,regular
+2:00 PM,elderly,21.5,0.8,regular
+2:30 PM,elderly,23,0.5,warm orange
+3:00 PM,elderly,22,0.8,bright yellow
+3:30 PM,elderly,21.5,0.8,regular
+4:00 PM,elderly,21.5,0.8,bright yellow
+4:30 PM,elderly,21.5,0.8,regular
+5:00 PM,elderly,21.5,0.8,regular
+5:30 PM,elderly,21.5,0.8,regular
+6:00 PM,elderly,22,1,red
+6:30 PM,elderly,21.5,0.8,regular
+7:00 PM,elderly,21.5,0.8,bright yellow
+7:30 PM,elderly,21.5,0.8,regular
+8:00 PM,elderly,21.5,0.8,regular
+8:30 PM,elderly,21.5,0.8,regular
+9:00 PM,elderly,21.5,0.7,warm orange
+9:30 PM,elderly,22,0.7,warm orange
+10:00 PM,elderly,22,0.7,warm orange
+10:30 PM,elderly,22.5,0.5,warm orange
+11:00 PM,elderly,21,0.35,warm orange
+11:30 PM,elderly,20,0,N.A.
+12:00 AM,elderly,19,0,N.A.
+6:00 AM,midage,19.5,0.35,warm orange
+6:30 AM,midage,20,0.8,bright yellow
+7:00 AM,midage,20.5,0.8,bright yellow
+7:30 AM,midage,21,0.8,regular
+8:00 AM,midage,21.5,0.8,regular
+8:30 AM,midage,21.5,0.8,regular
+9:00 AM,midage,21.5,0.8,regular
+9:30 AM,midage,21.5,0.8,regular
+10:00 AM,midage,21.5,0.8,regular
+10:30 AM,midage,22.5,0.7,regular
+11:00 AM,midage,22,0.8,bright yellow
+11:30 AM,midage,21.5,0.8,regular
+12:00 PM,midage,21.5,0.8,regular
+12:30 PM,midage,21.5,0.8,regular
+1:00 PM,midage,21.5,0.8,bright yellow
+1:30 PM,midage,21.5,0.8,regular
+2:00 PM,midage,21.5,0.8,regular
+2:30 PM,midage,23,0.5,warm orange
+3:00 PM,midage,22,0.8,bright yellow
+3:30 PM,midage,21.5,0.8,regular
+4:00 PM,midage,21.5,0.8,bright yellow
+4:30 PM,midage,21.5,0.8,regular
+5:00 PM,midage,21.5,0.8,regular
+5:30 PM,midage,21.5,0.8,regular
+6:00 PM,midage,22,1,red
+6:30 PM,midage,21.5,0.8,regular
+7:00 PM,midage,21.5,0.8,bright yellow
+7:30 PM,midage,21.5,0.8,regular
+8:00 PM,midage,21.5,0.8,regular
+8:30 PM,midage,21.5,0.8,regular
+9:00 PM,midage,21.5,0.7,warm orange
+9:30 PM,midage,22,0.7,warm orange
+10:00 PM,midage,22,0.7,warm orange
+10:30 PM,midage,22.5,0.5,warm orange
+11:00 PM,midage,21,0.35,warm orange
+11:30 PM,midage,20,0,N.A.
+12:00 AM,midage,19,0,N.A.
+6:00 AM,students,19,0,N.A.
+6:30 AM,students,19,0,N.A.
+7:00 AM,students,19.5,0.35,warm orange
+7:30 AM,students,20,0.8,bright yellow
+8:00 AM,students,20.5,0.8,bright yellow
+8:30 AM,students,21,0.8,regular
+9:00 AM,students,21.5,0.8,regular
+9:30 AM,students,21.5,1,white
+10:00 AM,students,21.5,1,white
+10:30 AM,students,22.5,0.7,regular
+11:00 AM,students,22,0.8,bright yellow
+11:30 AM,students,21.5,0.8,regular
+12:00 PM,students,21.5,0.8,regular
+12:30 PM,students,21.5,0.8,regular
+1:00 PM,students,21.5,0.8,bright yellow
+1:30 PM,students,21.5,0.8,regular
+2:00 PM,students,21.5,0.8,regular
+2:30 PM,students,23,0.5,warm orange
+3:00 PM,students,22,0.8,bright yellow
+3:30 PM,students,21.5,0.8,regular
+4:00 PM,students,21.5,0.8,bright yellow
+4:30 PM,students,21.5,0.8,regular
+5:00 PM,students,22,1,red
+5:30 PM,students,22,1,red
+6:00 PM,students,22,1,red
+6:30 PM,students,22,1,red
+7:00 PM,students,21.5,0.8,bright yellow
+7:30 PM,students,21.5,0.9,white
+8:00 PM,students,21.5,0.9,white
+8:30 PM,students,21.5,0.9,white
+9:00 PM,students,21.5,0.7,warm orange
+9:30 PM,students,22,0.7,warm orange
+10:00 PM,students,22,0.7,warm orange
+10:30 PM,students,22.5,0.5,warm orange
+11:00 PM,students,21,0.35,warm orange
+11:30 PM,students,20,0,N.A.
+12:00 AM,students,19,0,N.A.
+6:00 AM,youth,19,0,N.A.
+6:30 AM,youth,19,0,N.A.
+7:00 AM,youth,19.5,0.35,warm orange
+7:30 AM,youth,20,0.8,bright yellow
+8:00 AM,youth,20.5,0.8,bright yellow
+8:30 AM,youth,21,0.8,regular
+9:00 AM,youth,21.5,0.8,regular
+9:30 AM,youth,21.5,1,white
+10:00 AM,youth,21.5,1,white
+10:30 AM,youth,22.5,0.7,regular
+11:00 AM,youth,22,0.8,bright yellow
+11:30 AM,youth,21.5,0.8,regular
+12:00 PM,youth,21.5,0.8,regular
+12:30 PM,youth,21.5,0.8,regular
+1:00 PM,youth,21.5,0.8,bright yellow
+1:30 PM,youth,21.5,0.8,regular
+2:00 PM,youth,21.5,0.8,regular
+2:30 PM,youth,23,0.5,warm orange
+3:00 PM,youth,22,0.8,bright yellow
+3:30 PM,youth,21.5,0.8,regular
+4:00 PM,youth,21.5,0.8,bright yellow
+4:30 PM,youth,21.5,0.8,regular
+5:00 PM,youth,21.5,0.8,regular
+5:30 PM,youth,22,1,red
+6:00 PM,youth,22,1,red
+6:30 PM,youth,21.5,0.8,bright yellow
+7:00 PM,youth,21.5,0.9,white
+7:30 PM,youth,21.5,0.9,white
+8:00 PM,youth,21.5,0.8,white
+8:30 PM,youth,22,0.7,warm orange
+9:00 PM,youth,22.5,0.5,warm orange
+9:30 PM,youth,21,0.35,warm orange
+10:00 PM,youth,20,0,N.A.
+10:30 PM,youth,19,0,N.A.
+11:00 PM,youth,19,0,N.A.
+11:30 PM,youth,19,0,N.A.
+12:00 AM,youth,19,0,N.A.
