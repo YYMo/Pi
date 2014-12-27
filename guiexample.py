@@ -8,7 +8,7 @@ import threading
 import musicplayer
 import time
 import commander
-
+import db_connector
 
 class Example(Frame):
   
@@ -24,6 +24,7 @@ class Example(Frame):
         self.centerWindow()
         self.initUI()
         self.commander = commander.Commander()
+        self.db_con = db_connector.DBconnector()
         '''
         self.showPic = 1
         self.playSlides()
@@ -132,6 +133,10 @@ class Example(Frame):
                     self.insertText("Get JSON request")
                     msg = self.queue.get(0)
                     self.commander.parseCmd(msg)
+                elif(msg == "get_health_info"):
+                    msg = self.queue.get(0)
+                    output = self.query(msg)
+                    self.insertText(str(output))
 
                 else:
                     self.insertText(msg)

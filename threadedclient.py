@@ -25,8 +25,8 @@ class ThreadedClient:
 
         # start zmq replier
         zmqreply.run = 1
-        self.zmqthread = threading.Thread(target = self.replier.loop)
-        self.zmqthread.start()
+        #self.zmqthread = threading.Thread(target = self.replier.loop)
+        #self.zmqthread.start()
 
         # start socket replier
         socket_reply.run = 1
