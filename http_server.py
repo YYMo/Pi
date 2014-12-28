@@ -22,6 +22,42 @@ import BaseHTTPServer
 import sys
 import Queue
 
+def toQstr(s):
+    return '"' +str(s) + '"'
+
+def getThermostat():
+    return True
+
+def getLight():
+    return True
+
+def getBrightness():
+    return 20
+
+def getColor():
+    return '#FFFFFF'
+
+def getHeat():
+    return True
+
+def getTemperature():
+    return 20
+
+def getLock():
+    return True
+
+def getHTTPresponse_get():
+    return  '{"Thermostat":' + toQstr(getThermostat()) + \
+    ',"Light":'+ toQstr(getLight()) + \
+    ',"Brightness":'+ toQstr(getBrightness()) + \
+    ',"Color":'+ toQstr(getColor()) + \
+    ',"Heat":'+ toQstr(getHeat()) + \
+    ',"Temperature":'+ toQstr(getTemperature()) + \
+    ',"Lock":'+ toQstr(getLock()) +'}'
+
+
+
+
 class ServerHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
     
 
@@ -29,7 +65,10 @@ class ServerHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
         logging.warning("======= GET STARTED =======")
         logging.warning(self.headers)
 
-        response = u'{"a":"This is the respon"}'
+        response = getHTTPresponse_get()
+        
+        print response
+
         #response = 
         self.send_response(200) #create header
         self.send_header("Content-Type", 'application/json')
