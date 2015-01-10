@@ -62,12 +62,22 @@ def arduiinit():
     ser = serial.Serial('/dev/ttyACM0', 9600, timeout = 0.1)
     time.sleep(1)
 
+
 # global variable declaration
-serp = 0 
-ser = 0 
-mess='2991011000'
-arduiinit()
-arduisend(mess)
-arduireceive()
+
+def main():
+    serp = 0 
+    ser = 0 
+    #mess='2998011000'
+    arduiinit()
+    #arduisend(mess)
+    #arduireceive()
 
 
+if __name__ == '__main__':
+    if len(sys.argv) < 1:
+        message = sys.argv[1]
+    
+    arduiinit()
+    arduisend(message)
+    arguiceive()
