@@ -22,6 +22,12 @@ import BaseHTTPServer
 import sys
 import Queue
 
+API_LIGHT = '/api/light/'
+API_DOOR = 'api/door'
+API_AC = 'api/ac'
+API_IBEACON = 'api/iBeacon'
+
+
 def toQstr(s):
     return '"' +str(s) + '"'
 
@@ -67,6 +73,9 @@ class ServerHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
 
         response = getHTTPresponse_get()
         
+        print self.path
+
+
         print response
 
         #response = 

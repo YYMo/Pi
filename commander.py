@@ -1,4 +1,5 @@
 import json
+import pyserialcom
 
 class Commander():
     def __init__(self):
