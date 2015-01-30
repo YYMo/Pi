@@ -22,11 +22,13 @@ import BaseHTTPServer
 import sys
 import Queue
 
-API_LIGHT = '/api/light/'
+API_LIGHT = '/api/light'
 API_DOOR = 'api/door'
 API_AC = 'api/ac'
 API_IBEACON = 'api/iBeacon'
 
+def isAPI(API, query):
+    return query.find(API) != -1
 
 def toQstr(s):
     return '"' +str(s) + '"'
@@ -61,6 +63,8 @@ def getHTTPresponse_get():
     ',"Temperature":'+ toQstr(getTemperature()) + \
     ',"Lock":'+ toQstr(getLock()) +'}'
 
+def getHTTPresponse_get_light():
+    return '{"id":"2998", "ON":"True", "color":"#FFFFFF"}'
 
 
 
@@ -74,7 +78,11 @@ class ServerHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
         response = getHTTPresponse_get()
         
         print self.path
-
+        if isAPI(API_LIGHT,self.path):
+            print 'Light controll'
+            response = getHTTPresponse_get_light()
+        elif isAPI(API_DOOR,self.path):
+            print 'door controll'
 
         print response
 
@@ -95,7 +103,17 @@ class ServerHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
         content_len = int(self.headers.getheader('content-length', 0))
         post_body = self.rfile.read(content_len)
         server_queue.put("json_request")
-        server_queue.put(str(post_body))
+        if isAPI(API_LIGHT,self.path):
+            server_queue.put("light")
+        elif isAPI(API_DOOR,self.path):
+            server_queue.put("door")
+        elif isAPI(API_AC, self.path):
+            server_queue.put("ac")
+        elif isAPI(API_IBEACON, self.path):
+            server_queue.put("iBeacon")
+
+        print post_body
+        server_queue.put(post_body)
         logging.warning(post_body)
         response = u'{"a":"This is the respon"}'
         #response = 
@@ -132,7 +150,7 @@ class HttpServer():
     def __init__(self, queue):
         global server_queue
         server_queue = queue
-        self.PORT = 8004
+        self.PORT = 8000
         server_queue.put('HTTP port: ' + str(self.PORT))
         self.Handler = ServerHandler
         self.httpd = BaseHTTPServer.HTTPServer(("", self.PORT), self.Handler)

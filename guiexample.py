@@ -131,8 +131,10 @@ class Example(Frame):
                     self.nextSlide()
                 elif(msg == "json_request"):
                     self.insertText("Get JSON request")
-                    msg = self.queue.get(0)
-                    self.commander.parseCmd(msg)
+                    device = self.queue.get(0)
+                    cmd_json = self.queue.get(0)
+                    print 'get json', device, cmd_json
+                    self.commander.parseCmd(device, cmd_json)
                 elif(msg == "get_health_info"):
                     msg = self.queue.get(0)
                     output = self.query(msg)
