@@ -17,7 +17,7 @@ def changecolor(deviceID, Red, Green, Blue):
 
 def sendMessage(msg):
     recordMessage(msg)
-    #return pyserialcom.arduisend(msg)
+    return pyserialcom.arduisend(msg)
 
 def recordMessage(msg):
     print msg
@@ -30,75 +30,130 @@ class Commander():
     def __init__(self):
         self.cmd = 1
         self.state = 'OFF'
+        self.ac_state = 'OFF'
         self.iBeaonThreshold = -50
+        self.temperature = 0
     def cmdLight(self):
         self.cmd = 1
     def cmdTemp(self):
         self.cmd = 1
-    def turnLightOn(self, deviceID):
+    def turnLightON(self, deviceID):
         print 'Turn on light now'
+        if self.state == 'ON':
+            return 
         self.state = 'ON'
         sendMessage(deviceID + '011200')
-    def turnLightOff(self, deviceID):
+    def turnLightOFF(self, deviceID):
         print 'Turn off light now'
+        if self.state == 'OFF':
+            return 
         self.state = 'OFF'
         sendMessage(deviceID + '010000')   
-    def setTemperture(self, devicedID, temperature):
+    def turnACON(self, deviceID):
+        print 'Turn AC ON'
+        if self.ac_state == 'ON':
+            return 
+        self.ac_state = 'ON'
+        sendMessage(deviceID + '021000')  
+
+    def turnACOFF(self, deviceID):
+        print 'Turn AC OFF'
+        if self.ac_state == 'OFF':
+            return 
+        self.ac_state = 'OFF'
+        sendMessage(deviceID + '020000')
+
+    def addTemperture(self, deviceID, temperature):
         print 'setTemperture' + str(temperature)
-        
+        sendMessage(deviceID + '024000')        
+
+    def decTemperture(self, deviceID, temperature):
+        print 'setTemperture' + str(temperature)
+        sendMessage(deviceID + '025000')        
+
 
     def parseCmd(self, device, cmd):
     	js = json.loads(cmd)
         #print json.dumps(js)
         #print js['a']
         	#print js.has_key('a')
-        
+        pyserialcom.arduiinit()
         if device == 'iBeacon':
             for key in js:
                 if str(key) == 'rssi':
                     if int(js[key]) >= self.iBeaonThreshold:
                         self.turnLightOn('2351')
+                if str(key) == 'ON':
+                    if str(js[key]) == 'true' or str(js[key]) == 'True':
+                        if self.state == 'ON':
+                            return      
+                        #self.turnACON('2466')
+                        #time.sleep(2)                        
+                        #self.addTemperture('2466', str(js[key]))
+                        #time.sleep(2)
+                        self.turnLightON('2998')
 
+                    if str(js[key]) == 'false' or str(js[key]) == 'False':
+                        if self.state == 'OFF':
+                            return 
+                        self.turnLightOFF('2998')
 
         elif device == 'ac':
             print "ac json get"
             #pyserialcom.arduiinit()
-            deviceID = '9999'
+            deviceID = '2466'
             for key in js:
                 if str(key) == 'ON':
-                    print 'now state:', js[key], self.state
-                    if str(js[key]) == 'true' or str(js[key]) == 'True' and self.state == 'OFF':
-                        self.turnLightOn(deviceID)
+                    if str(js[key]) == 'true' or str(js[key]) == 'True':
+                        self.turnACON(deviceID)
                         
-                    if str(js[key]) == 'false' or str(js[key]) == 'False' and self.state == 'ON':
-                        self.turnLightOff(deviceID)
+                    if str(js[key]) == 'false' or str(js[key]) == 'False':
+                        self.turnACOFF(deviceID)
 
-                if str(key) == 'temperature':
+                if str(key) == 'Temperature':
                     if str(js[key]) == '-1':
                         continue
-                    print 'set temperature' + str(js[key])
+                    if int(js[key]) >= int(self.temperature):
+                        self.addTemperture(deviceID, str(js[key]))
+                    else:
+                        self.decTemperture(deviceID, str(js[key]))
+                    self.temperature = str(js[key])
+
+                    
 
 
         elif device == 'light':
             print "light json get"
 
             #pyserialcom.arduiinit()
-            deviceID = '2351'
+            deviceID = '2998'
             for key in js:
                 if str(key) == 'ON':
-                    print 'now state:', js[key], self.state
-                    if str(js[key]) == 'true' or str(js[key]) == 'True' and self.state == 'OFF':
-                        turnLightOn(deviceID)
-                        
-                    if str(js[key]) == 'false' or str(js[key]) == 'False' and self.state == 'ON':
-                        turnLightOff(deviceID)
+                    print 'light in key ON'
+                    if str(js[key]) == 'true' or str(js[key]) == 'True':
+                        self.turnLightON(deviceID)
+                    
+                    if str(js[key]) == 'false' or str(js[key]) == 'False':
+                        self.turnLightOFF(deviceID)
                     
 
                 if str(key) == 'color':
                     if str(js[key]) == 'ffffff':
                         continue
                     rgb_tuple = translate(js[key])
-                    changecolor(deviceID, '255', '196', '000')
+                    c = [0 ,0 ,0]
+                    c[0] = rgb_tuple[0]
+                    c[1] = rgb_tuple[1]
+                    c[2] = rgb_tuple[2]
+                    for i in range(0, 3):
+                        print i, 'ttttt'
+                        if len(c[i]) == 1:
+                            c[i] = '00' + c[i]
+                        if len(c[i]) == 2:
+                            c[i] = '0' + c[i]
+                    print 'ttttt'
+
+                    changecolor(deviceID, c[0], c[1], c[2])
             
             pyserialcom.arduireceive()
 
